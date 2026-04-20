@@ -3,22 +3,26 @@ import useEmblaCarousel from "embla-carousel-react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
+const misi = [
+  "Menyediakan layanan terintegrasi yang andal dan terpercaya untuk mendukung pusat pembangkit listrik dan utilitas industri",
+  "Mengembangkan inovasi layanan dan model bisnis termasuk lingkup usaha transisi energi guna memperkuat daya saing serta menciptakan nilai tambah yang berkelanjutan",
+  "Mengoptimalkan pengelolaan sumber daya perusahaan melalui peningkatan kapabilitas, efisiensi, dan digitalisasi yang memberikan nilai tambah bagi stakeholder",
+  "Meningkatkan kualitas dan kapabilitas sumber daya manusia melalui pengembangan kompetensi, kepemimpinan, dan budaya kerja yang adaptif serta berorientasi pada keunggulan",
+];
+
 const slides = [
   {
     image: "/images/hero-1.png",
+    type: "main" as const,
     title: "Mendukung Ketahanan Energi Nasional",
     subtitle: "Anak Perusahaan PT PLN Nusantara Power Services",
   },
   {
     image: "/images/hero-2.png",
-    title: "Keandalan Operasi & Pemeliharaan",
-    subtitle: "Standar Global untuk Kinerja Pembangkit Maksimal",
+    type: "visimisi" as const,
+    title: "",
+    subtitle: "",
   },
-  {
-    image: "/images/hero-3.png",
-    title: "Transisi Energi Bersih & Terbarukan",
-    subtitle: "Berkomitmen pada Masa Depan Berkelanjutan",
-  }
 ];
 
 export function Hero() {
@@ -47,10 +51,9 @@ export function Hero() {
     onSelect();
     emblaApi.on("select", onSelect);
 
-    // Auto-play
     const interval = setInterval(() => {
       emblaApi.scrollNext();
-    }, 6000);
+    }, 7000);
 
     return () => {
       emblaApi.off("select", onSelect);
@@ -64,31 +67,74 @@ export function Hero() {
         <div className="flex h-full touch-pan-y">
           {slides.map((slide, index) => (
             <div key={index} className="relative h-full flex-[0_0_100%] min-w-0">
-              <div className="absolute inset-0 bg-black/40 z-10" />
+              <div className="absolute inset-0 bg-black/55 z-10" />
               <img
                 src={slide.image}
-                alt={slide.title}
+                alt={`Slide ${index + 1}`}
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-0 flex items-center justify-center z-20">
-                <div className="container mx-auto px-4 md:px-6 text-center text-white">
-                  <div
-                    className="max-w-4xl mx-auto opacity-0 translate-y-8 animate-in slide-in-from-bottom-8 fade-in duration-1000 fill-mode-forwards"
-                    style={{ animationDelay: "300ms" }}
-                  >
-                    <h2 className="text-xl md:text-2xl font-bold tracking-widest text-accent mb-4 uppercase">
-                      {slide.subtitle}
-                    </h2>
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-8 text-balance">
-                      {slide.title}
-                    </h1>
-                    <Button size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 py-6 text-lg font-semibold group">
-                      Lihat Lebih
-                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </Button>
+
+              {slide.type === "main" ? (
+                <div className="absolute inset-0 flex items-center justify-center z-20">
+                  <div className="container mx-auto px-4 md:px-6 text-center text-white">
+                    <div
+                      className="max-w-4xl mx-auto opacity-0 translate-y-8 animate-in slide-in-from-bottom-8 fade-in duration-1000 fill-mode-forwards"
+                      style={{ animationDelay: "300ms" }}
+                    >
+                      <h2 className="text-xl md:text-2xl font-bold tracking-widest text-accent mb-4 uppercase">
+                        {slide.subtitle}
+                      </h2>
+                      <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-8 text-balance">
+                        {slide.title}
+                      </h1>
+                      <Button size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 py-6 text-lg font-semibold group">
+                        Lihat Lebih
+                        <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className="absolute inset-0 flex items-center z-20 overflow-y-auto">
+                  <div className="container mx-auto px-4 md:px-10 py-24 text-white w-full">
+                    <div
+                      className="max-w-5xl mx-auto opacity-0 translate-y-8 animate-in slide-in-from-bottom-8 fade-in duration-1000 fill-mode-forwards"
+                      style={{ animationDelay: "300ms" }}
+                    >
+                      <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+                        {/* Visi */}
+                        <div>
+                          <div className="flex items-center gap-3 mb-5">
+                            <span className="w-8 h-1 bg-accent rounded-full inline-block" />
+                            <span className="text-accent uppercase tracking-widest text-sm font-bold">Visi</span>
+                          </div>
+                          <p className="text-2xl md:text-3xl font-bold leading-snug text-white">
+                            Menjadi Penyedia Layanan Pendukung Kegiatan Penyediaan Tenaga Listrik dan Utilitas Industri yang Terpercaya di Indonesia dengan Komitmen pada Bisnis yang Berkelanjutan
+                          </p>
+                        </div>
+
+                        {/* Misi */}
+                        <div>
+                          <div className="flex items-center gap-3 mb-5">
+                            <span className="w-8 h-1 bg-accent rounded-full inline-block" />
+                            <span className="text-accent uppercase tracking-widest text-sm font-bold">Misi</span>
+                          </div>
+                          <ol className="space-y-4">
+                            {misi.map((item, i) => (
+                              <li key={i} className="flex gap-3 text-white/90 text-sm md:text-base leading-relaxed">
+                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 border border-accent/50 text-accent text-xs font-bold flex items-center justify-center mt-0.5">
+                                  {i + 1}
+                                </span>
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -117,8 +163,8 @@ export function Hero() {
           <button
             key={index}
             onClick={() => scrollTo(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === selectedIndex ? "bg-accent w-10" : "bg-white/50 hover:bg-white/80"
+            className={`h-3 rounded-full transition-all duration-300 ${
+              index === selectedIndex ? "bg-accent w-10" : "bg-white/50 hover:bg-white/80 w-3"
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />
