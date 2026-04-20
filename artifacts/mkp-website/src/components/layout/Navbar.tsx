@@ -14,7 +14,7 @@ const navLinks: NavItem[] = [
     href: "#about",
     dropdown: [
       { label: "Tentang Kami", href: "#about" },
-      { label: "Sambutan Direktur Utama", href: "#about" },
+      { label: "Sambutan Direktur Utama", href: "/profil/sambutan-direksi" },
       { label: "Visi & Misi", href: "#hero" },
       { label: "Struktur Organisasi", href: "#about" },
       { label: "Dewan Direksi", href: "#about" },
