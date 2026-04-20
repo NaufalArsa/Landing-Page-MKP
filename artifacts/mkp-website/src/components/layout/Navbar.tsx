@@ -18,11 +18,13 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Tentang Kami", href: "#about" },
-    { name: "Produk & Layanan", href: "#products" },
-    { name: "Sustainability", href: "#sustainability" },
-    { name: "Berita", href: "#news" },
-    { name: "Kontak", href: "#footer" },
+    { name: "Profil", href: "#about" },
+    { name: "Tata Kelola", href: "#values" },
+    { name: "Produk dan Layanan", href: "#products" },
+    { name: "Berita MKP", href: "#news" },
+    { name: "Media", href: "#media" },
+    { name: "Pengadaan", href: "#procurement" },
+    { name: "Hubungi Kami", href: "#footer" },
   ];
 
   return (
@@ -45,13 +47,13 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <ul className="flex items-center space-x-6">
+          <nav className="hidden md:flex items-center space-x-4">
+            <ul className="flex items-center space-x-4">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-sm font-semibold text-white/90 hover:text-white transition-colors uppercase tracking-wide"
+                    className="text-xs font-semibold text-white/90 hover:text-white transition-colors uppercase tracking-wide whitespace-nowrap"
                   >
                     {link.name}
                   </a>
