@@ -1,0 +1,62 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "_OR1wW7uSh5VFM11Tv3XV"
+uri = "file://artifacts/mkp-website/public/images/hero-1.png"
+type = "image"
+title = "Solar panels at sunset over water"
+
+[[generated]]
+id = "t8xLQJwWDyOUFKbFkUm3J"
+uri = "file://artifacts/mkp-website/public/images/hero-2.png"
+type = "image"
+title = "Industrial power plant at night"
+
+[[generated]]
+id = "fKbUb3LPvIgxWqHR_PSjG"
+uri = "file://artifacts/mkp-website/public/images/hero-3.png"
+type = "image"
+title = "Wind turbines over Indonesian landscape"
+
+[[generated]]
+id = "lZjFOEIeStr0-y3MIJN1C"
+uri = "file://artifacts/mkp-website/public/images/product-1.png"
+type = "image"
+title = "Industrial MRO workshop"
+
+[[generated]]
+id = "Qeev6Ik_BHtUvh7GQtAID"
+uri = "file://artifacts/mkp-website/public/images/product-2.png"
+type = "image"
+title = "Electrical operations center"
+
+[[generated]]
+id = "crNwWrhHbaigJX700ndoI"
+uri = "file://artifacts/mkp-website/public/images/product-3.png"
+type = "image"
+title = "Clean solar hydro energy facility"
+
+[[generated]]
+id = "ZrZW18yrffttD9jTqlC4q"
+uri = "file://artifacts/mkp-website/public/images/news-1.png"
+type = "image"
+title = "Industrial safety gear"
+
+[[generated]]
+id = "X_XKyDzAXfc0jOgpZjznI"
+uri = "file://artifacts/mkp-website/public/images/news-2.png"
+type = "image"
+title = "Power plant workers"
+
+[[generated]]
+id = "bBBqjeQP9pbSEpYiaKK8p"
+uri = "file://artifacts/mkp-website/public/images/news-3.png"
+type = "image"
+title = "Corporate award ceremony"
+
+[[generated]]
+id = "wyxaUV6fHIMWJQsUI1PUV"
+uri = "file://artifacts/mkp-website/public/images/about.png"
+type = "image"
+title = "Modern corporate energy headquarters"
