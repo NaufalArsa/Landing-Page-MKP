@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
@@ -56,19 +56,6 @@ export function About() {
             <p className="text-gray-600 text-lg mb-8 leading-relaxed">
               Didirikan pada tahun 2004, PT MKP telah berkembang menjadi pemain kunci dalam penyediaan jasa pendukung operasi dan pemeliharaan pembangkit listrik di seluruh Indonesia.
             </p>
-
-            <ul className="space-y-4 mb-10">
-              {[
-                "Standar Keamanan dan K3 yang Ketat",
-                "Tenaga Profesional yang Tersertifikasi",
-                "Inovasi Berkelanjutan di Sektor Energi"
-              ].map((item, i) => (
-                <li key={i} className="flex items-center text-secondary font-semibold">
-                  <CheckCircle className="w-6 h-6 text-accent mr-3 flex-shrink-0" />
-                  {item}
-                </li>
-              ))}
-            </ul>
 
             <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white rounded-full px-8 group">
               Tentang Kami
