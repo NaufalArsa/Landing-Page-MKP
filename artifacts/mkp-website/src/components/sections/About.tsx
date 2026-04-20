@@ -8,29 +8,27 @@ export function About() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           {/* Image Side */}
-          <motion.div 
+          <motion.div
             className="w-full lg:w-1/2 relative"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] group">
-              <img 
-                src="/images/about.png" 
-                alt="PT MKP Corporate Headquarters" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-video">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/DRv05dHB3dU?si=FGRMlh4NwQLT9wzY"
+                title="Jingle PT Mitra Karya Prima"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 to-transparent opacity-80" />
-              
-              <div className="absolute bottom-8 left-8 right-8">
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl inline-block">
-                  <div className="text-5xl font-extrabold text-white mb-1">2004</div>
-                  <div className="text-white/90 font-medium">Tahun Berdiri</div>
-                </div>
-              </div>
             </div>
-            
+
             {/* Decorative block */}
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent rounded-br-3xl -z-10" />
             <div className="absolute -top-6 -left-6 w-32 h-32 border-4 border-primary rounded-tl-3xl -z-10" />
