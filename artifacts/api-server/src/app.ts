@@ -1,8 +1,20 @@
 import express, { type Express } from "express";
 import cors from "cors";
+import session from "express-session";
+import cookieParser from "cookie-parser";
 import pinoHttp from "pino-http";
+import ConnectPgSimple from "connect-pg-simple";
+import pg from "pg";
 import router from "./routes";
 import { logger } from "./lib/logger";
+
+const { Pool } = pg;
+
+const PgSession = ConnectPgSimple(session);
+
+const sessionPool = new Pool({
+  connectionString: process.env["DATABASE_URL"],
+});
 
 const app: Express = express();
 
@@ -25,9 +37,33 @@ app.use(
     },
   }),
 );
-app.use(cors());
+
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  session({
+    store: new PgSession({
+      pool: sessionPool,
+      createTableIfMissing: true,
+    }),
+    secret: process.env["SESSION_SECRET"] ?? "mkp-secret-dev-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
+  }),
+);
 
 app.use("/api", router);
 
