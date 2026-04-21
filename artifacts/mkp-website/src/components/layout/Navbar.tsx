@@ -15,7 +15,7 @@ const navLinks: NavItem[] = [
     dropdown: [
       { label: "Tentang Kami", href: "#about" },
       { label: "Sambutan Direktur Utama", href: "/profil/sambutan-direksi" },
-      { label: "Visi & Misi", href: "#hero" },
+      { label: "Visi & Misi", href: "/profil/visi-misi" },
       { label: "Struktur Organisasi", href: "#about" },
       { label: "Dewan Direksi", href: "#about" },
       { label: "Dewan Komisaris", href: "#about" },
@@ -47,18 +47,31 @@ const navLinks: NavItem[] = [
   { name: "Hubungi Kami", href: "#footer" },
 ];
 
-function DropdownMenu({ items }: { items: { label: string; href: string }[] }) {
+function DropdownMenu({ items, onClose }: { items: { label: string; href: string }[]; onClose: () => void }) {
   return (
     <div className="absolute top-full left-0 mt-1 w-56 bg-white shadow-xl rounded-lg overflow-hidden z-50 border border-gray-100">
-      {items.map((item, i) => (
-        <a
-          key={i}
-          href={item.href}
-          className="block px-5 py-3 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary font-medium border-b border-gray-50 last:border-0 transition-colors"
-        >
-          {item.label}
-        </a>
-      ))}
+      {items.map((item, i) => {
+        const isInternal = item.href.startsWith("/");
+        return isInternal ? (
+          <Link key={i} href={item.href}>
+            <a
+              className="block px-5 py-3 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary font-medium border-b border-gray-50 last:border-0 transition-colors"
+              onClick={onClose}
+            >
+              {item.label}
+            </a>
+          </Link>
+        ) : (
+          <a
+            key={i}
+            href={item.href}
+            className="block px-5 py-3 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary font-medium border-b border-gray-50 last:border-0 transition-colors"
+            onClick={onClose}
+          >
+            {item.label}
+          </a>
+        );
+      })}
     </div>
   );
 }
@@ -134,7 +147,7 @@ export function Navbar() {
                       onMouseEnter={() => setActiveDropdown(link.name)}
                       onMouseLeave={() => setActiveDropdown(null)}
                     >
-                      <DropdownMenu items={link.dropdown} />
+                      <DropdownMenu items={link.dropdown} onClose={() => setActiveDropdown(null)} />
                     </div>
                   )}
                 </li>

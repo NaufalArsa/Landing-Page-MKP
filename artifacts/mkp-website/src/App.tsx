@@ -6,6 +6,7 @@ import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import SambutanDireksi from "@/pages/SambutanDireksi";
+import VisiMisi from "@/pages/VisiMisi";
 import Login from "@/pages/admin/Login";
 import Dashboard from "@/pages/admin/Dashboard";
 import NewsList from "@/pages/admin/NewsList";
@@ -38,6 +39,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/profil/sambutan-direksi" component={SambutanDireksi} />
+      <Route path="/profil/visi-misi" component={VisiMisi} />
 
       <Route path="/admin/login" component={Login} />
 
