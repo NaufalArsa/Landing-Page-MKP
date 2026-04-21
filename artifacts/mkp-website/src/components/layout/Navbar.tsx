@@ -54,12 +54,12 @@ function DropdownMenu({ items, onClose }: { items: { label: string; href: string
         const isInternal = item.href.startsWith("/");
         return isInternal ? (
           <Link key={i} href={item.href}>
-            <a
-              className="block px-5 py-3 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary font-medium border-b border-gray-50 last:border-0 transition-colors"
+            <span
+              className="block px-5 py-3 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary font-medium border-b border-gray-50 last:border-0 transition-colors cursor-pointer"
               onClick={onClose}
             >
               {item.label}
-            </a>
+            </span>
           </Link>
         ) : (
           <a

@@ -52,7 +52,8 @@ app.use(
   session({
     store: new PgSession({
       pool: sessionPool,
-      createTableIfMissing: true,
+      createTableIfMissing: false,
+      pruneSessionInterval: false,
     }),
     secret: process.env["SESSION_SECRET"] ?? "mkp-secret-dev-key",
     resave: false,
