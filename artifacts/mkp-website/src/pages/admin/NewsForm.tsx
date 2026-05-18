@@ -33,7 +33,7 @@ export default function NewsForm() {
   const [form, setForm] = useState({
     title: "",
     slug: "",
-    category: "",
+    category: "" as string | undefined,
     status: "draft" as "draft" | "published" | "archived",
     imageUrl: "",
     content: "",
@@ -161,19 +161,7 @@ export default function NewsForm() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
-                <select
-                  value={form.category}
-                  onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#01B1D7]/40 bg-white"
-                >
-                  <option value="">— Pilih Kategori —</option>
-                  {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
-                </select>
-              </div>
-
+            <div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
                 <select
