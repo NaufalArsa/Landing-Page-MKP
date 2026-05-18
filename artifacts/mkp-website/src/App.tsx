@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import SambutanDireksi from "@/pages/SambutanDireksi";
 import VisiMisi from "@/pages/VisiMisi";
+import WhistleBlowing from "@/pages/WhistleBlowing";
 import Login from "@/pages/admin/Login";
 import Dashboard from "@/pages/admin/Dashboard";
 import NewsList from "@/pages/admin/NewsList";
@@ -40,6 +41,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/profil/sambutan-direksi" component={SambutanDireksi} />
       <Route path="/profil/visi-misi" component={VisiMisi} />
+      <Route path="/tata-kelola/whistle-blowing" component={WhistleBlowing} />
 
       <Route path="/admin/login" component={Login} />
 

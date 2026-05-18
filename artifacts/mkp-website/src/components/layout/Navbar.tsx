@@ -25,7 +25,7 @@ const navLinks: NavItem[] = [
     name: "Tata Kelola",
     href: "#values",
     dropdown: [
-      { label: "Whistle Blowing", href: "#values" },
+      { label: "Whistle Blowing", href: "/tata-kelola/whistle-blowing" },
       { label: "Laporan Tahunan", href: "#values" },
       { label: "GCG", href: "#values" },
       { label: "Laporan Gratifikasi", href: "#values" },
