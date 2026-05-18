@@ -43,7 +43,7 @@ const navLinks: NavItem[] = [
   },
   { name: "Berita MKP", href: "#news" },
   { name: "Media", href: "#media" },
-  { name: "Pengadaan", href: "#procurement" },
+  { name: "Pengadaan", href: "/pengadaan" },
   { name: "Hubungi Kami", href: "#footer" },
 ];
 

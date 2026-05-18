@@ -6,6 +6,7 @@ import {
   BookOpen,
   BookMarked,
   ScrollText,
+  ShoppingBag,
   LogOut,
   Menu,
   X,
@@ -19,6 +20,7 @@ const NAV = [
   { href: "/admin/laporan-tahunan", label: "Laporan Tahunan", icon: BookOpen },
   { href: "/admin/laporan-gratifikasi", label: "Laporan Gratifikasi", icon: BookMarked },
   { href: "/admin/surat-keputusan", label: "Surat Keputusan", icon: ScrollText },
+  { href: "/admin/pengadaan", label: "Pengadaan", icon: ShoppingBag },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

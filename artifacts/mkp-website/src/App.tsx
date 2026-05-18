@@ -11,6 +11,7 @@ import WhistleBlowing from "@/pages/WhistleBlowing";
 import LaporanTahunan from "@/pages/LaporanTahunan";
 import LaporanGratifikasi from "@/pages/LaporanGratifikasi";
 import SuratKeputusanDireksi from "@/pages/SuratKeputusanDireksi";
+import Pengadaan from "@/pages/Pengadaan";
 import Login from "@/pages/admin/Login";
 import AnnualReportList from "@/pages/admin/AnnualReportList";
 import AnnualReportForm from "@/pages/admin/AnnualReportForm";
@@ -18,6 +19,8 @@ import GratificationReportList from "@/pages/admin/GratificationReportList";
 import GratificationReportForm from "@/pages/admin/GratificationReportForm";
 import DirectorDecreeList from "@/pages/admin/DirectorDecreeList";
 import DirectorDecreeForm from "@/pages/admin/DirectorDecreeForm";
+import PengadaanList from "@/pages/admin/PengadaanList";
+import PengadaanForm from "@/pages/admin/PengadaanForm";
 import Dashboard from "@/pages/admin/Dashboard";
 import NewsList from "@/pages/admin/NewsList";
 import NewsForm from "@/pages/admin/NewsForm";
@@ -54,6 +57,7 @@ function Router() {
       <Route path="/tata-kelola/laporan-tahunan" component={LaporanTahunan} />
       <Route path="/tata-kelola/laporan-gratifikasi" component={LaporanGratifikasi} />
       <Route path="/tata-kelola/surat-keputusan-direksi" component={SuratKeputusanDireksi} />
+      <Route path="/pengadaan" component={Pengadaan} />
 
       <Route path="/admin/login" component={Login} />
 
@@ -126,6 +130,16 @@ function Router() {
       </Route>
       <Route path="/admin/surat-keputusan/:id">
         {() => <AdminGuard><DirectorDecreeForm /></AdminGuard>}
+      </Route>
+
+      <Route path="/admin/pengadaan">
+        {() => <AdminGuard><PengadaanList /></AdminGuard>}
+      </Route>
+      <Route path="/admin/pengadaan/baru">
+        {() => <AdminGuard><PengadaanForm /></AdminGuard>}
+      </Route>
+      <Route path="/admin/pengadaan/:id">
+        {() => <AdminGuard><PengadaanForm /></AdminGuard>}
       </Route>
 
       <Route component={NotFound} />

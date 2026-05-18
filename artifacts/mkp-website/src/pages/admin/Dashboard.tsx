@@ -4,7 +4,7 @@ import { newsApi, type NewsItem } from "@/lib/api";
 import { useAuth } from "@/contexts/AuthContext";
 import {
   Newspaper, FileText, Archive, TrendingUp,
-  BookOpen, BookMarked, ScrollText, Plus,
+  BookOpen, BookMarked, ScrollText, ShoppingBag, Plus,
   ArrowRight, Clock, ChevronRight,
 } from "lucide-react";
 import { Link } from "wouter";
@@ -14,6 +14,7 @@ interface CountItem { count: number }
 interface AnnualReport { id: number; year: number; title: string; createdAt: string }
 interface GratificationReport { id: number; year: number; title: string; createdAt: string }
 interface DirectorDecree { id: number; number: string; title: string; createdAt: string }
+interface PengadaanItem { id: number; title: string; createdAt: string }
 
 function StatCard({
   label, value, icon: Icon, color, loading, href,
@@ -78,6 +79,7 @@ export default function Dashboard() {
   const [annualReports, setAnnualReports] = useState<AnnualReport[]>([]);
   const [gratReports, setGratReports] = useState<GratificationReport[]>([]);
   const [decrees, setDecrees] = useState<DirectorDecree[]>([]);
+  const [pengadaan, setPengadaan] = useState<PengadaanItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -86,11 +88,13 @@ export default function Dashboard() {
       fetch("/api/annual-reports", { credentials: "include" }).then((r) => r.json()).catch(() => []),
       fetch("/api/gratification-reports", { credentials: "include" }).then((r) => r.json()).catch(() => []),
       fetch("/api/director-decrees", { credentials: "include" }).then((r) => r.json()).catch(() => []),
-    ]).then(([n, ar, gr, dd]) => {
+      fetch("/api/pengadaan", { credentials: "include" }).then((r) => r.json()).catch(() => []),
+    ]).then(([n, ar, gr, dd, pg]) => {
       setNews(Array.isArray(n) ? n : []);
       setAnnualReports(Array.isArray(ar) ? ar : []);
       setGratReports(Array.isArray(gr) ? gr : []);
       setDecrees(Array.isArray(dd) ? dd : []);
+      setPengadaan(Array.isArray(pg) ? pg : []);
     }).finally(() => setLoading(false));
   }, []);
 
@@ -103,6 +107,7 @@ export default function Dashboard() {
     { label: "Laporan Tahunan", value: annualReports.length, icon: BookOpen, color: "bg-[#0A6F85]", href: "/admin/laporan-tahunan" },
     { label: "Laporan Gratifikasi", value: gratReports.length, icon: BookMarked, color: "bg-[#1a5276]", href: "/admin/laporan-gratifikasi" },
     { label: "Surat Keputusan", value: decrees.length, icon: ScrollText, color: "bg-[#6c3483]", href: "/admin/surat-keputusan" },
+    { label: "Pengadaan", value: pengadaan.length, icon: ShoppingBag, color: "bg-[#b7570a]", href: "/admin/pengadaan" },
   ];
 
   const newsStats = [
@@ -116,6 +121,7 @@ export default function Dashboard() {
     { href: "/admin/laporan-tahunan/baru", icon: BookOpen, label: "Unggah Laporan Tahunan", description: "Upload PDF laporan tahunan", color: "bg-[#0A6F85]" },
     { href: "/admin/laporan-gratifikasi/baru", icon: BookMarked, label: "Unggah Laporan Gratifikasi", description: "Upload PDF laporan gratifikasi", color: "bg-[#1a5276]" },
     { href: "/admin/surat-keputusan/baru", icon: ScrollText, label: "Tambah Surat Keputusan", description: "Upload SK Direksi baru", color: "bg-[#6c3483]" },
+    { href: "/admin/pengadaan/baru", icon: ShoppingBag, label: "Tambah Pengadaan", description: "Upload dokumen pengadaan baru", color: "bg-[#b7570a]" },
   ];
 
   // Combined recent activity
@@ -150,6 +156,13 @@ export default function Dashboard() {
       type: "SK Direksi",
       typeColor: "text-[#6c3483] bg-[#6c3483]/10",
       date: d.createdAt,
+    })),
+    ...pengadaan.slice(0, 3).map((p) => ({
+      id: p.id,
+      title: p.title,
+      type: "Pengadaan",
+      typeColor: "text-[#b7570a] bg-[#b7570a]/10",
+      date: p.createdAt,
     })),
   ]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -270,6 +283,7 @@ export default function Dashboard() {
               { href: "/admin/laporan-tahunan", icon: BookOpen, label: "Laporan Tahunan", desc: `${annualReports.length} laporan`, color: "text-[#0A6F85]" },
               { href: "/admin/laporan-gratifikasi", icon: BookMarked, label: "Laporan Gratifikasi", desc: `${gratReports.length} laporan`, color: "text-[#1a5276]" },
               { href: "/admin/surat-keputusan", icon: ScrollText, label: "Surat Keputusan", desc: `${decrees.length} dokumen`, color: "text-[#6c3483]" },
+              { href: "/admin/pengadaan", icon: ShoppingBag, label: "Pengadaan", desc: `${pengadaan.length} dokumen`, color: "text-[#b7570a]" },
             ].map(({ href, icon: Icon, label, desc, color }) => (
               <Link key={href} href={href}>
                 <div className="flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors cursor-pointer group">
