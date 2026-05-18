@@ -16,9 +16,9 @@ const navLinks: NavItem[] = [
       { label: "Tentang Kami", href: "#about" },
       { label: "Sambutan Direktur Utama", href: "/profil/sambutan-direksi" },
       { label: "Visi & Misi", href: "/profil/visi-misi" },
-      { label: "Struktur Organisasi", href: "#about" },
-      { label: "Dewan Direksi", href: "#about" },
-      { label: "Dewan Komisaris", href: "#about" },
+      { label: "Struktur Organisasi", href: "/profil/struktur-organisasi" },
+      { label: "Dewan Direksi", href: "/profil/dewan-direksi" },
+      { label: "Dewan Komisaris", href: "/profil/dewan-komisaris" },
     ],
   },
   {

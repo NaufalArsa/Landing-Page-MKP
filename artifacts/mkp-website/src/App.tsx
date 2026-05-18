@@ -12,6 +12,9 @@ import LaporanTahunan from "@/pages/LaporanTahunan";
 import LaporanGratifikasi from "@/pages/LaporanGratifikasi";
 import SuratKeputusanDireksi from "@/pages/SuratKeputusanDireksi";
 import Pengadaan from "@/pages/Pengadaan";
+import StrukturOrganisasi from "@/pages/StrukturOrganisasi";
+import DewanDireksi from "@/pages/DewanDireksi";
+import DewanKomisaris from "@/pages/DewanKomisaris";
 import Login from "@/pages/admin/Login";
 import AnnualReportList from "@/pages/admin/AnnualReportList";
 import AnnualReportForm from "@/pages/admin/AnnualReportForm";
@@ -21,6 +24,9 @@ import DirectorDecreeList from "@/pages/admin/DirectorDecreeList";
 import DirectorDecreeForm from "@/pages/admin/DirectorDecreeForm";
 import PengadaanList from "@/pages/admin/PengadaanList";
 import PengadaanForm from "@/pages/admin/PengadaanForm";
+import OrgStructureAdmin from "@/pages/admin/OrgStructureAdmin";
+import BoardMemberList from "@/pages/admin/BoardMemberList";
+import BoardMemberForm from "@/pages/admin/BoardMemberForm";
 import Dashboard from "@/pages/admin/Dashboard";
 import NewsList from "@/pages/admin/NewsList";
 import NewsForm from "@/pages/admin/NewsForm";
@@ -58,6 +64,9 @@ function Router() {
       <Route path="/tata-kelola/laporan-gratifikasi" component={LaporanGratifikasi} />
       <Route path="/tata-kelola/surat-keputusan-direksi" component={SuratKeputusanDireksi} />
       <Route path="/pengadaan" component={Pengadaan} />
+      <Route path="/profil/struktur-organisasi" component={StrukturOrganisasi} />
+      <Route path="/profil/dewan-direksi" component={DewanDireksi} />
+      <Route path="/profil/dewan-komisaris" component={DewanKomisaris} />
 
       <Route path="/admin/login" component={Login} />
 
@@ -140,6 +149,20 @@ function Router() {
       </Route>
       <Route path="/admin/pengadaan/:id">
         {() => <AdminGuard><PengadaanForm /></AdminGuard>}
+      </Route>
+
+      <Route path="/admin/org-structure">
+        {() => <AdminGuard><OrgStructureAdmin /></AdminGuard>}
+      </Route>
+
+      <Route path="/admin/board-members">
+        {() => <AdminGuard><BoardMemberList /></AdminGuard>}
+      </Route>
+      <Route path="/admin/board-members/baru">
+        {() => <AdminGuard><BoardMemberForm /></AdminGuard>}
+      </Route>
+      <Route path="/admin/board-members/:id">
+        {() => <AdminGuard><BoardMemberForm /></AdminGuard>}
       </Route>
 
       <Route component={NotFound} />
