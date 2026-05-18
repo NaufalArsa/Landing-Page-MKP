@@ -3,6 +3,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import {
   LayoutDashboard,
   Newspaper,
+  BookOpen,
   LogOut,
   Menu,
   X,
@@ -13,6 +14,7 @@ import { useState } from "react";
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/berita", label: "Berita MKP", icon: Newspaper },
+  { href: "/admin/laporan-tahunan", label: "Laporan Tahunan", icon: BookOpen },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

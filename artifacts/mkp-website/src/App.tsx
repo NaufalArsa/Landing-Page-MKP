@@ -8,7 +8,10 @@ import Home from "@/pages/Home";
 import SambutanDireksi from "@/pages/SambutanDireksi";
 import VisiMisi from "@/pages/VisiMisi";
 import WhistleBlowing from "@/pages/WhistleBlowing";
+import LaporanTahunan from "@/pages/LaporanTahunan";
 import Login from "@/pages/admin/Login";
+import AnnualReportList from "@/pages/admin/AnnualReportList";
+import AnnualReportForm from "@/pages/admin/AnnualReportForm";
 import Dashboard from "@/pages/admin/Dashboard";
 import NewsList from "@/pages/admin/NewsList";
 import NewsForm from "@/pages/admin/NewsForm";
@@ -42,6 +45,7 @@ function Router() {
       <Route path="/profil/sambutan-direksi" component={SambutanDireksi} />
       <Route path="/profil/visi-misi" component={VisiMisi} />
       <Route path="/tata-kelola/whistle-blowing" component={WhistleBlowing} />
+      <Route path="/tata-kelola/laporan-tahunan" component={LaporanTahunan} />
 
       <Route path="/admin/login" component={Login} />
 
@@ -70,6 +74,28 @@ function Router() {
         {() => (
           <AdminGuard>
             <NewsForm />
+          </AdminGuard>
+        )}
+      </Route>
+
+      <Route path="/admin/laporan-tahunan">
+        {() => (
+          <AdminGuard>
+            <AnnualReportList />
+          </AdminGuard>
+        )}
+      </Route>
+      <Route path="/admin/laporan-tahunan/baru">
+        {() => (
+          <AdminGuard>
+            <AnnualReportForm />
+          </AdminGuard>
+        )}
+      </Route>
+      <Route path="/admin/laporan-tahunan/:id">
+        {() => (
+          <AdminGuard>
+            <AnnualReportForm />
           </AdminGuard>
         )}
       </Route>

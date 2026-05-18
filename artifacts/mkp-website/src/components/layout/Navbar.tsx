@@ -26,7 +26,7 @@ const navLinks: NavItem[] = [
     href: "#values",
     dropdown: [
       { label: "Whistle Blowing", href: "/tata-kelola/whistle-blowing" },
-      { label: "Laporan Tahunan", href: "#values" },
+      { label: "Laporan Tahunan", href: "/tata-kelola/laporan-tahunan" },
       { label: "GCG", href: "#values" },
       { label: "Laporan Gratifikasi", href: "#values" },
       { label: "Surat Keputusan Direksi", href: "#values" },
