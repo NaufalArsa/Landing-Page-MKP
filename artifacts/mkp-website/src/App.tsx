@@ -9,9 +9,15 @@ import SambutanDireksi from "@/pages/SambutanDireksi";
 import VisiMisi from "@/pages/VisiMisi";
 import WhistleBlowing from "@/pages/WhistleBlowing";
 import LaporanTahunan from "@/pages/LaporanTahunan";
+import LaporanGratifikasi from "@/pages/LaporanGratifikasi";
+import SuratKeputusanDireksi from "@/pages/SuratKeputusanDireksi";
 import Login from "@/pages/admin/Login";
 import AnnualReportList from "@/pages/admin/AnnualReportList";
 import AnnualReportForm from "@/pages/admin/AnnualReportForm";
+import GratificationReportList from "@/pages/admin/GratificationReportList";
+import GratificationReportForm from "@/pages/admin/GratificationReportForm";
+import DirectorDecreeList from "@/pages/admin/DirectorDecreeList";
+import DirectorDecreeForm from "@/pages/admin/DirectorDecreeForm";
 import Dashboard from "@/pages/admin/Dashboard";
 import NewsList from "@/pages/admin/NewsList";
 import NewsForm from "@/pages/admin/NewsForm";
@@ -46,6 +52,8 @@ function Router() {
       <Route path="/profil/visi-misi" component={VisiMisi} />
       <Route path="/tata-kelola/whistle-blowing" component={WhistleBlowing} />
       <Route path="/tata-kelola/laporan-tahunan" component={LaporanTahunan} />
+      <Route path="/tata-kelola/laporan-gratifikasi" component={LaporanGratifikasi} />
+      <Route path="/tata-kelola/surat-keputusan-direksi" component={SuratKeputusanDireksi} />
 
       <Route path="/admin/login" component={Login} />
 
@@ -98,6 +106,26 @@ function Router() {
             <AnnualReportForm />
           </AdminGuard>
         )}
+      </Route>
+
+      <Route path="/admin/laporan-gratifikasi">
+        {() => <AdminGuard><GratificationReportList /></AdminGuard>}
+      </Route>
+      <Route path="/admin/laporan-gratifikasi/baru">
+        {() => <AdminGuard><GratificationReportForm /></AdminGuard>}
+      </Route>
+      <Route path="/admin/laporan-gratifikasi/:id">
+        {() => <AdminGuard><GratificationReportForm /></AdminGuard>}
+      </Route>
+
+      <Route path="/admin/surat-keputusan">
+        {() => <AdminGuard><DirectorDecreeList /></AdminGuard>}
+      </Route>
+      <Route path="/admin/surat-keputusan/baru">
+        {() => <AdminGuard><DirectorDecreeForm /></AdminGuard>}
+      </Route>
+      <Route path="/admin/surat-keputusan/:id">
+        {() => <AdminGuard><DirectorDecreeForm /></AdminGuard>}
       </Route>
 
       <Route component={NotFound} />

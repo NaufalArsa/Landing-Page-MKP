@@ -28,8 +28,8 @@ const navLinks: NavItem[] = [
       { label: "Whistle Blowing", href: "/tata-kelola/whistle-blowing" },
       { label: "Laporan Tahunan", href: "/tata-kelola/laporan-tahunan" },
       { label: "GCG", href: "#values" },
-      { label: "Laporan Gratifikasi", href: "#values" },
-      { label: "Surat Keputusan Direksi", href: "#values" },
+      { label: "Laporan Gratifikasi", href: "/tata-kelola/laporan-gratifikasi" },
+      { label: "Surat Keputusan Direksi", href: "/tata-kelola/surat-keputusan-direksi" },
     ],
   },
   {

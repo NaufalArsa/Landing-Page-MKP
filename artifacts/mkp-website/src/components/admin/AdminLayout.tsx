@@ -4,6 +4,8 @@ import {
   LayoutDashboard,
   Newspaper,
   BookOpen,
+  BookMarked,
+  ScrollText,
   LogOut,
   Menu,
   X,
@@ -15,6 +17,8 @@ const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/berita", label: "Berita MKP", icon: Newspaper },
   { href: "/admin/laporan-tahunan", label: "Laporan Tahunan", icon: BookOpen },
+  { href: "/admin/laporan-gratifikasi", label: "Laporan Gratifikasi", icon: BookMarked },
+  { href: "/admin/surat-keputusan", label: "Surat Keputusan", icon: ScrollText },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

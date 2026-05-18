@@ -6,6 +6,8 @@ import healthRouter from "./health";
 import authRouter from "./auth";
 import newsRouter from "./news";
 import annualReportsRouter from "./annual-reports";
+import gratificationReportsRouter from "./gratification-reports";
+import directorDecreesRouter from "./director-decrees";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,5 +21,7 @@ router.use(healthRouter);
 router.use("/auth", authRouter);
 router.use("/news", newsRouter);
 router.use("/annual-reports", annualReportsRouter);
+router.use("/gratification-reports", gratificationReportsRouter);
+router.use("/director-decrees", directorDecreesRouter);
 
 export default router;
