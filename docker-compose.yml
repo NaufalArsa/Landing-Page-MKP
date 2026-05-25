@@ -1,0 +1,65 @@
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: mkp-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mkp_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  setup:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: mkp-setup
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/mkp_db
+    volumes:
+      - .:/app
+    command: sh -c "pnpm install && pnpm --filter @workspace/db push"
+    depends_on:
+      db:
+        condition: service_started
+
+  api-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: mkp-api-server
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/mkp_db
+      - PORT=8080
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    command: sh -c "pnpm --filter @workspace/api-server dev"
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+
+  mkp-website:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: mkp-website
+    environment:
+      - PORT=5173
+      - BASE_PATH=/
+      - API_URL=http://api-server:8080
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+    command: sh -c "pnpm --filter @workspace/mkp-website dev"
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+
+volumes:
+  postgres_data:

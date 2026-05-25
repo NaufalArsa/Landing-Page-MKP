@@ -13,7 +13,7 @@ const navLinks: NavItem[] = [
     name: "Profil",
     href: "#about",
     dropdown: [
-      { label: "Tentang Kami", href: "#about" },
+      { label: "Tentang Kami", href: "/profil/tentang-kami" },
       { label: "Sambutan Direktur Utama", href: "/profil/sambutan-direksi" },
       { label: "Visi & Misi", href: "/profil/visi-misi" },
       { label: "Struktur Organisasi", href: "/profil/struktur-organisasi" },
@@ -27,7 +27,7 @@ const navLinks: NavItem[] = [
     dropdown: [
       { label: "Whistle Blowing", href: "/tata-kelola/whistle-blowing" },
       { label: "Laporan Tahunan", href: "/tata-kelola/laporan-tahunan" },
-      { label: "GCG", href: "#values" },
+      { label: "GCG", href: "/tata-kelola/gcg" },
       { label: "Laporan Gratifikasi", href: "/tata-kelola/laporan-gratifikasi" },
       { label: "Surat Keputusan Direksi", href: "/tata-kelola/surat-keputusan-direksi" },
     ],
@@ -41,9 +41,10 @@ const navLinks: NavItem[] = [
       { label: "Clean & Renewable Energy Supporting Product", href: "#products" },
     ],
   },
-  { name: "Berita MKP", href: "#news" },
+  { name: "Berita MKP", href: "/news" },
   { name: "Media", href: "#media" },
   { name: "Pengadaan", href: "/pengadaan" },
+  { name: "Karir", href: "/karir" },
   { name: "Hubungi Kami", href: "#footer" },
 ];
 
@@ -133,6 +134,12 @@ export function Navbar() {
                       {link.name}
                       <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === link.name ? "rotate-180" : ""}`} />
                     </button>
+                  ) : link.href.startsWith("/") ? (
+                    <Link href={link.href}>
+                      <span className="flex items-center px-3 py-2 text-xs font-semibold text-white/90 hover:text-white transition-colors uppercase tracking-wide whitespace-nowrap cursor-pointer">
+                        {link.name}
+                      </span>
+                    </Link>
                   ) : (
                     <a
                       href={link.href}
@@ -188,24 +195,46 @@ export function Navbar() {
           <ul className="flex flex-col py-4 px-6 space-y-1">
             {navLinks.map((link) => (
               <li key={link.name}>
-                <a
-                  href={link.href}
-                  className="block text-white font-semibold text-base uppercase py-3 border-b border-white/5"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
+                {link.href.startsWith("/") ? (
+                  <Link href={link.href}>
+                    <span
+                      className="block text-white font-semibold text-base uppercase py-3 border-b border-white/5 cursor-pointer"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {link.name}
+                    </span>
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    className="block text-white font-semibold text-base uppercase py-3 border-b border-white/5"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                )}
                 {link.dropdown && (
                   <ul className="pl-4 pb-2 space-y-1">
                     {link.dropdown.map((sub, i) => (
                       <li key={i}>
-                        <a
-                          href={sub.href}
-                          className="block text-white/70 text-sm py-2 hover:text-white transition-colors"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          {sub.label}
-                        </a>
+                        {sub.href.startsWith("/") ? (
+                          <Link href={sub.href}>
+                            <span
+                              className="block text-white/70 text-sm py-2 hover:text-white transition-colors cursor-pointer"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {sub.label}
+                            </span>
+                          </Link>
+                        ) : (
+                          <a
+                            href={sub.href}
+                            className="block text-white/70 text-sm py-2 hover:text-white transition-colors"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {sub.label}
+                          </a>
+                        )}
                       </li>
                     ))}
                   </ul>

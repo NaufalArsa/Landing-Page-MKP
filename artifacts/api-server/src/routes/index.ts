@@ -11,6 +11,8 @@ import directorDecreesRouter from "./director-decrees";
 import pengadaanRouter from "./pengadaan";
 import orgStructureRouter from "./org-structure";
 import boardMembersRouter from "./board-members";
+import gcgRouter from "./gcg";
+import careersRouter from "./careers";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,5 +31,7 @@ router.use("/director-decrees", directorDecreesRouter);
 router.use("/pengadaan", pengadaanRouter);
 router.use("/org-structure", orgStructureRouter);
 router.use("/board-members", boardMembersRouter);
+router.use("/gcg", gcgRouter);
+router.use("/careers", careersRouter);
 
 export default router;

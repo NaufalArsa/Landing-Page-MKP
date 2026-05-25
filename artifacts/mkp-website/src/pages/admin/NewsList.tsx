@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { newsApi, type NewsItem } from "@/lib/api";
-import { Plus, Pencil, Trash2, Newspaper } from "lucide-react";
+import { Plus, Pencil, Trash2, Newspaper, Eye } from "lucide-react";
 
 const STATUS_TABS = [
   { key: "", label: "Semua" },
@@ -136,8 +136,17 @@ export default function NewsList() {
                     {statusLabel[item.status]}
                   </span>
                   <div className="flex items-center gap-2 flex-shrink-0">
+                    <a
+                      href={`/news/${item.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-1.5 text-gray-400 hover:text-[#0A6F85] hover:bg-blue-50 rounded-lg transition-colors"
+                      title="Lihat Berita"
+                    >
+                      <Eye size={15} />
+                    </a>
                     <Link href={`/admin/berita/${item.id}`}>
-                      <a className="p-1.5 text-gray-400 hover:text-[#0A6F85] hover:bg-blue-50 rounded-lg transition-colors">
+                      <a className="p-1.5 text-gray-400 hover:text-[#0A6F85] hover:bg-blue-50 rounded-lg transition-colors" title="Edit Berita">
                         <Pencil size={15} />
                       </a>
                     </Link>
@@ -145,6 +154,7 @@ export default function NewsList() {
                       onClick={() => { void handleDelete(item.id); }}
                       disabled={deleting === item.id}
                       className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-40"
+                      title="Hapus Berita"
                     >
                       <Trash2 size={15} />
                     </button>

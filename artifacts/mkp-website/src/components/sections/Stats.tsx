@@ -3,10 +3,9 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const stats = [
-  { value: 21, label: "Tahun Pengalaman", suffix: "+" },
-  { value: 90, label: "Unit Kerja", suffix: "+" },
+  { value: 21, label: "Tahun Pengalaman", suffix: "" },
+  { value: 103, label: "Unit Kerja", suffix: "" },
   { value: 3, label: "Lini Produk & Layanan", suffix: "" },
-  { value: 100, label: "Anak PLN NPS", suffix: "%" }
 ];
 
 function Counter({ from, to, suffix }: { from: number, to: number, suffix: string }) {
@@ -15,23 +14,22 @@ function Counter({ from, to, suffix }: { from: number, to: number, suffix: strin
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   useEffect(() => {
-    if (isInView) {
-      let start = from;
-      const end = to;
-      // Duration in ms
-      const duration = 2000;
-      const stepTime = Math.abs(Math.floor(duration / (end - start)));
-      
-      const timer = setInterval(() => {
-        start += 1;
-        setCount(start);
-        if (start === end) {
-          clearInterval(timer);
-        }
-      }, stepTime);
-      
-      return () => clearInterval(timer);
-    }
+    if (!isInView) return;
+    let start = from;
+    const end = to;
+    // Duration in ms
+    const duration = 2000;
+    const stepTime = Math.abs(Math.floor(duration / (end - start)));
+
+    const timer = setInterval(() => {
+      start += 1;
+      setCount(start);
+      if (start === end) {
+        clearInterval(timer);
+      }
+    }, stepTime);
+
+    return () => clearInterval(timer);
   }, [isInView, from, to]);
 
   return (
@@ -49,10 +47,10 @@ export function Stats() {
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/20 to-transparent pointer-events-none"></div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center divide-x divide-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-center md:divide-x divide-white/10">
           {stats.map((stat, i) => (
-            <motion.div 
-              key={i} 
+            <motion.div
+              key={i}
               className="flex flex-col items-center justify-center border-white/10"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}

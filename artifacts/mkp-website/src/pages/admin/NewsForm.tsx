@@ -38,6 +38,8 @@ export default function NewsForm() {
     imageUrl: "",
     content: "",
   });
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>("");
   const [slugManual, setSlugManual] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(!!editId);
@@ -71,18 +73,18 @@ export default function NewsForm() {
     setError("");
     setLoading(true);
     try {
-      const payload = {
-        title: form.title,
-        slug: form.slug,
-        category: form.category || null,
-        status: form.status,
-        imageUrl: form.imageUrl || null,
-        content: form.content || null,
-      };
+      const formData = new FormData();
+      formData.append("title", form.title);
+      formData.append("slug", form.slug);
+      formData.append("category", form.category || "");
+      formData.append("status", form.status);
+      if (form.content) formData.append("content", form.content);
+      if (imageFile) formData.append("image", imageFile);
+
       if (editId) {
-        await newsApi.update(editId, payload);
+        await newsApi.update(editId, formData);
       } else {
-        await newsApi.create(payload);
+        await newsApi.create(formData);
       }
       navigate("/admin/berita");
     } catch (err) {
@@ -162,6 +164,22 @@ export default function NewsForm() {
             </div>
 
             <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Kategori Berita</label>
+              <select
+                value={form.category || ""}
+                onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#01B1D7]/40 bg-white"
+              >
+                <option value="">Tanpa Kategori</option>
+                {CATEGORIES.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
                 <select
@@ -177,17 +195,25 @@ export default function NewsForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">URL Gambar</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Gambar Berita</label>
               <input
-                type="url"
-                value={form.imageUrl}
-                onChange={(e) => setForm((f) => ({ ...f, imageUrl: e.target.value }))}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#01B1D7]/40"
-                placeholder="https://..."
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    setImageFile(file);
+                    setImagePreview(URL.createObjectURL(file));
+                  } else {
+                    setImageFile(null);
+                    setImagePreview("");
+                  }
+                }}
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#01B1D7]/40 bg-white"
               />
-              {form.imageUrl && (
+              {(imagePreview || form.imageUrl) && (
                 <img
-                  src={form.imageUrl}
+                  src={imagePreview || form.imageUrl}
                   alt="preview"
                   className="mt-2 h-32 w-full object-cover rounded-lg border border-gray-200"
                 />

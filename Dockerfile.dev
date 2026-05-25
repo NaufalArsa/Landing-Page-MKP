@@ -1,0 +1,8 @@
+FROM node:22-slim
+
+# Install pnpm
+RUN npm install -g pnpm@9.15.4
+
+WORKDIR /app
+
+# The rest is handled by volume mounts and commands in docker-compose.yml

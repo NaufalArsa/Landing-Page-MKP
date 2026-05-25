@@ -106,7 +106,7 @@ router.put(
   ]),
   async (req, res) => {
     try {
-      const id = parseInt(req.params["id"] ?? "0");
+      const id = parseInt((req.params["id"] as string) ?? "0");
       const [existing] = await db.select().from(pengadaanTable).where(eq(pengadaanTable.id, id));
       if (!existing) { res.status(404).json({ error: "Pengadaan tidak ditemukan" }); return; }
 
@@ -140,7 +140,7 @@ router.put(
 
 router.delete("/:id", requireAuth, async (req, res) => {
   try {
-    const id = parseInt(req.params["id"] ?? "0");
+    const id = parseInt((req.params["id"] as string) ?? "0");
     const [existing] = await db.select().from(pengadaanTable).where(eq(pengadaanTable.id, id));
     if (!existing) { res.status(404).json({ error: "Pengadaan tidak ditemukan" }); return; }
 

@@ -1,9 +1,15 @@
 const BASE = "/api";
 
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
+  const isFormData = init?.body instanceof FormData;
+  const headers = new Headers(init?.headers);
+  if (!isFormData && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
+
   const res = await fetch(`${BASE}${path}`, {
     credentials: "include",
-    headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
+    headers,
     ...init,
   });
   if (!res.ok) {
@@ -48,10 +54,10 @@ export const newsApi = {
   list: (status?: string) =>
     apiFetch<NewsItem[]>(`/news${status ? `?status=${status}` : ""}`),
   get: (id: number) => apiFetch<NewsItem>(`/news/${id}`),
-  create: (data: Partial<NewsItem>) =>
-    apiFetch<NewsItem>("/news", { method: "POST", body: JSON.stringify(data) }),
-  update: (id: number, data: Partial<NewsItem>) =>
-    apiFetch<NewsItem>(`/news/${id}`, { method: "PUT", body: JSON.stringify(data) }),
+  create: (data: Partial<NewsItem> | FormData) =>
+    apiFetch<NewsItem>("/news", { method: "POST", body: data instanceof FormData ? data : JSON.stringify(data) }),
+  update: (id: number, data: Partial<NewsItem> | FormData) =>
+    apiFetch<NewsItem>(`/news/${id}`, { method: "PUT", body: data instanceof FormData ? data : JSON.stringify(data) }),
   remove: (id: number) =>
     apiFetch<{ message: string }>(`/news/${id}`, { method: "DELETE" }),
 };

@@ -80,7 +80,7 @@ router.put("/:id", requireAuth,
   upload.fields([{ name: "pdf", maxCount: 1 }, { name: "cover", maxCount: 1 }]),
   async (req, res) => {
     try {
-      const id = parseInt(req.params["id"] ?? "0");
+      const id = parseInt((req.params["id"] as string) ?? "0");
       const [existing] = await db.select().from(directorDecreesTable).where(eq(directorDecreesTable.id, id));
       if (!existing) { res.status(404).json({ error: "Tidak ditemukan" }); return; }
       const files = req.files as Record<string, Express.Multer.File[]>;
@@ -105,7 +105,7 @@ router.put("/:id", requireAuth,
 
 router.delete("/:id", requireAuth, async (req, res) => {
   try {
-    const id = parseInt(req.params["id"] ?? "0");
+    const id = parseInt((req.params["id"] as string) ?? "0");
     const [existing] = await db.select().from(directorDecreesTable).where(eq(directorDecreesTable.id, id));
     if (!existing) { res.status(404).json({ error: "Tidak ditemukan" }); return; }
     const del = (url: string | null) => { if (url) { const f = path.join(UPLOADS_DIR, url.split("/").pop()!); if (fs.existsSync(f)) fs.unlinkSync(f); } };

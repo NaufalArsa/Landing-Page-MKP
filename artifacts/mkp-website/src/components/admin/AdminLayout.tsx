@@ -13,6 +13,7 @@ import {
   Menu,
   X,
   ChevronRight,
+  Briefcase,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -24,7 +25,9 @@ const NAV = [
   { href: "/admin/surat-keputusan", label: "Surat Keputusan", icon: ScrollText },
   { href: "/admin/pengadaan", label: "Pengadaan", icon: ShoppingBag },
   { href: "/admin/org-structure", label: "Struktur Org.", icon: Network },
+  { href: "/admin/gcg", label: "GCG", icon: ScrollText },
   { href: "/admin/board-members", label: "Dewan Anggota", icon: Users },
+  { href: "/admin/karir", label: "Karir", icon: Briefcase },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

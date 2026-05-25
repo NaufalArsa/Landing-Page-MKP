@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "wouter";
 import { Calendar, ChevronRight, ArrowRight, Newspaper } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -51,14 +52,12 @@ export function News() {
               Berita MKP Terbaru
             </h2>
           </div>
-          <Button
-            variant="outline"
-            className="border-secondary text-secondary hover:bg-secondary hover:text-white rounded-full"
-            onClick={() => window.scrollTo({ top: 0 })}
-          >
-            Lihat Semua Berita
-            <ChevronRight className="ml-2 w-4 h-4" />
-          </Button>
+          <Link href="/news">
+            <a className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-secondary text-secondary hover:bg-secondary hover:text-white rounded-full h-9 px-4 py-2">
+              Lihat Semua Berita
+              <ChevronRight className="ml-2 w-4 h-4" />
+            </a>
+          </Link>
         </div>
 
         {loading ? (
@@ -76,55 +75,58 @@ export function News() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {items.map((item, i) => (
-              <motion.div
-                key={item.id}
-                className="group cursor-pointer flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
-              >
-                <div className="relative h-64 overflow-hidden bg-gray-100">
-                  {item.imageUrl ? (
-                    <img
-                      src={item.imageUrl}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-secondary/10 to-accent/10">
-                      <Newspaper size={40} className="text-secondary/30" />
+              <Link key={item.id} href={`/news/${item.id}`}>
+                <a className="block group cursor-pointer flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 h-full">
+                  <motion.div
+                    className="flex flex-col h-full"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.5, delay: i * 0.15 }}
+                  >
+                    <div className="relative h-64 overflow-hidden bg-gray-100 rounded-t-2xl">
+                      {item.imageUrl ? (
+                        <img
+                          src={item.imageUrl}
+                          alt={item.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-secondary/10 to-accent/10">
+                          <Newspaper size={40} className="text-secondary/30" />
+                        </div>
+                      )}
+                      {item.category?.trim() && (
+                        <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
+                          {item.category}
+                        </div>
+                      )}
                     </div>
-                  )}
-                  {item.category && (
-                    <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
-                      {item.category}
+
+                    <div className="p-6 flex flex-col flex-grow">
+                      <div className="flex items-center text-sm text-gray-500 mb-4">
+                        <Calendar className="w-4 h-4 mr-2 text-accent" />
+                        {formatDate(item.publishedAt ?? item.createdAt)}
+                      </div>
+
+                      <h3 className="text-xl font-bold text-secondary mb-4 leading-snug group-hover:text-primary transition-colors line-clamp-3">
+                        {item.title}
+                      </h3>
+
+                      {item.content && (
+                        <p className="text-sm text-gray-500 line-clamp-2 mb-2">
+                          {item.content}
+                        </p>
+                      )}
+
+                      <div className="mt-auto pt-4 border-t border-gray-100 flex items-center text-primary font-semibold text-sm">
+                        Baca Selengkapnya
+                        <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </div>
                     </div>
-                  )}
-                </div>
-
-                <div className="p-6 flex flex-col flex-grow">
-                  <div className="flex items-center text-sm text-gray-500 mb-4">
-                    <Calendar className="w-4 h-4 mr-2 text-accent" />
-                    {formatDate(item.publishedAt ?? item.createdAt)}
-                  </div>
-
-                  <h3 className="text-xl font-bold text-secondary mb-4 leading-snug group-hover:text-primary transition-colors line-clamp-3">
-                    {item.title}
-                  </h3>
-
-                  {item.content && (
-                    <p className="text-sm text-gray-500 line-clamp-2 mb-2">
-                      {item.content}
-                    </p>
-                  )}
-
-                  <div className="mt-auto pt-4 border-t border-gray-100 flex items-center text-primary font-semibold text-sm">
-                    Baca Selengkapnya
-                    <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-              </motion.div>
+                  </motion.div>
+                </a>
+              </Link>
             ))}
           </div>
         )}

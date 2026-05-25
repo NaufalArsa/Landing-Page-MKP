@@ -57,10 +57,12 @@ export function About() {
               Didirikan pada tahun 2004, PT MKP telah berkembang menjadi pemain kunci dalam penyediaan jasa pendukung operasi dan pemeliharaan pembangkit listrik di seluruh Indonesia.
             </p>
 
-            <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white rounded-full px-8 group">
-              Tentang Kami
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <a href="/profil/tentang-kami">
+              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white rounded-full px-8 group">
+                Tentang Kami
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </a>
           </motion.div>
         </div>
       </div>

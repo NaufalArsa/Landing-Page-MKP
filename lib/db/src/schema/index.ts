@@ -6,3 +6,6 @@ export * from "./director-decrees";
 export * from "./pengadaan";
 export * from "./org-structure";
 export * from "./board-members";
+export * from "./gcg";
+export * from "./careers";
+export * from "./session";

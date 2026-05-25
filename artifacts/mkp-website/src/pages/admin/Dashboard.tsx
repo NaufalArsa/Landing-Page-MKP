@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import {
   Newspaper, FileText, Archive, TrendingUp,
   BookOpen, BookMarked, ScrollText, ShoppingBag, Plus,
-  ArrowRight, Clock, ChevronRight,
+  ArrowRight, Clock, ChevronRight, Briefcase,
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -15,6 +15,7 @@ interface AnnualReport { id: number; year: number; title: string; createdAt: str
 interface GratificationReport { id: number; year: number; title: string; createdAt: string }
 interface DirectorDecree { id: number; number: string; title: string; createdAt: string }
 interface PengadaanItem { id: number; title: string; createdAt: string }
+interface CareerItem { id: number; title: string; createdAt: string }
 
 function StatCard({
   label, value, icon: Icon, color, loading, href,
@@ -80,6 +81,7 @@ export default function Dashboard() {
   const [gratReports, setGratReports] = useState<GratificationReport[]>([]);
   const [decrees, setDecrees] = useState<DirectorDecree[]>([]);
   const [pengadaan, setPengadaan] = useState<PengadaanItem[]>([]);
+  const [careers, setCareers] = useState<CareerItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -89,12 +91,14 @@ export default function Dashboard() {
       fetch("/api/gratification-reports", { credentials: "include" }).then((r) => r.json()).catch(() => []),
       fetch("/api/director-decrees", { credentials: "include" }).then((r) => r.json()).catch(() => []),
       fetch("/api/pengadaan", { credentials: "include" }).then((r) => r.json()).catch(() => []),
-    ]).then(([n, ar, gr, dd, pg]) => {
+      fetch("/api/careers", { credentials: "include" }).then((r) => r.json()).catch(() => []),
+    ]).then(([n, ar, gr, dd, pg, c]) => {
       setNews(Array.isArray(n) ? n : []);
       setAnnualReports(Array.isArray(ar) ? ar : []);
       setGratReports(Array.isArray(gr) ? gr : []);
       setDecrees(Array.isArray(dd) ? dd : []);
       setPengadaan(Array.isArray(pg) ? pg : []);
+      setCareers(Array.isArray(c) ? c : []);
     }).finally(() => setLoading(false));
   }, []);
 
@@ -108,6 +112,7 @@ export default function Dashboard() {
     { label: "Laporan Gratifikasi", value: gratReports.length, icon: BookMarked, color: "bg-[#1a5276]", href: "/admin/laporan-gratifikasi" },
     { label: "Surat Keputusan", value: decrees.length, icon: ScrollText, color: "bg-[#6c3483]", href: "/admin/surat-keputusan" },
     { label: "Pengadaan", value: pengadaan.length, icon: ShoppingBag, color: "bg-[#b7570a]", href: "/admin/pengadaan" },
+    { label: "Pengumuman Karir", value: careers.length, icon: Briefcase, color: "bg-[#0e6655]", href: "/admin/karir" },
   ];
 
   const newsStats = [
@@ -122,6 +127,7 @@ export default function Dashboard() {
     { href: "/admin/laporan-gratifikasi/baru", icon: BookMarked, label: "Unggah Laporan Gratifikasi", description: "Upload PDF laporan gratifikasi", color: "bg-[#1a5276]" },
     { href: "/admin/surat-keputusan/baru", icon: ScrollText, label: "Tambah Surat Keputusan", description: "Upload SK Direksi baru", color: "bg-[#6c3483]" },
     { href: "/admin/pengadaan/baru", icon: ShoppingBag, label: "Tambah Pengadaan", description: "Upload dokumen pengadaan baru", color: "bg-[#b7570a]" },
+    { href: "/admin/karir/baru", icon: Briefcase, label: "Tambah Pengumuman Karir", description: "Upload pengumuman karir baru", color: "bg-[#0e6655]" },
   ];
 
   // Combined recent activity
@@ -164,6 +170,13 @@ export default function Dashboard() {
       typeColor: "text-[#b7570a] bg-[#b7570a]/10",
       date: p.createdAt,
     })),
+    ...careers.slice(0, 3).map((c) => ({
+      id: c.id,
+      title: c.title,
+      type: "Karir",
+      typeColor: "text-[#0e6655] bg-[#0e6655]/10",
+      date: c.createdAt,
+    })),
   ]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 8);
@@ -194,7 +207,7 @@ export default function Dashboard() {
         {/* Top stats — one per content type */}
         <div>
           <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Total Konten</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
             {topStats.map((s) => (
               <StatCard key={s.label} {...s} loading={loading} />
             ))}
@@ -277,13 +290,14 @@ export default function Dashboard() {
           <div className="px-5 py-4 border-b border-gray-100">
             <h2 className="text-sm font-bold text-gray-700">Kelola Konten</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-100">
             {[
               { href: "/admin/berita", icon: Newspaper, label: "Berita MKP", desc: `${news.length} artikel`, color: "text-[#337AB7]" },
               { href: "/admin/laporan-tahunan", icon: BookOpen, label: "Laporan Tahunan", desc: `${annualReports.length} laporan`, color: "text-[#0A6F85]" },
               { href: "/admin/laporan-gratifikasi", icon: BookMarked, label: "Laporan Gratifikasi", desc: `${gratReports.length} laporan`, color: "text-[#1a5276]" },
               { href: "/admin/surat-keputusan", icon: ScrollText, label: "Surat Keputusan", desc: `${decrees.length} dokumen`, color: "text-[#6c3483]" },
               { href: "/admin/pengadaan", icon: ShoppingBag, label: "Pengadaan", desc: `${pengadaan.length} dokumen`, color: "text-[#b7570a]" },
+              { href: "/admin/karir", icon: Briefcase, label: "Karir", desc: `${careers.length} pengumuman`, color: "text-[#0e6655]" },
             ].map(({ href, icon: Icon, label, desc, color }) => (
               <Link key={href} href={href}>
                 <div className="flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors cursor-pointer group">

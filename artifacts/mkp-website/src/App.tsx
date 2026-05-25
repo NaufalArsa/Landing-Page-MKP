@@ -6,15 +6,20 @@ import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import SambutanDireksi from "@/pages/SambutanDireksi";
+import TentangKami from "@/pages/TentangKami";
 import VisiMisi from "@/pages/VisiMisi";
 import WhistleBlowing from "@/pages/WhistleBlowing";
 import LaporanTahunan from "@/pages/LaporanTahunan";
 import LaporanGratifikasi from "@/pages/LaporanGratifikasi";
 import SuratKeputusanDireksi from "@/pages/SuratKeputusanDireksi";
+import GCG from "@/pages/GCG";
 import Pengadaan from "@/pages/Pengadaan";
+import NewsPage from "@/pages/NewsPage";
+import NewsDetail from "@/pages/NewsDetail";
 import StrukturOrganisasi from "@/pages/StrukturOrganisasi";
 import DewanDireksi from "@/pages/DewanDireksi";
 import DewanKomisaris from "@/pages/DewanKomisaris";
+import Karir from "@/pages/Karir";
 import Login from "@/pages/admin/Login";
 import AnnualReportList from "@/pages/admin/AnnualReportList";
 import AnnualReportForm from "@/pages/admin/AnnualReportForm";
@@ -25,11 +30,14 @@ import DirectorDecreeForm from "@/pages/admin/DirectorDecreeForm";
 import PengadaanList from "@/pages/admin/PengadaanList";
 import PengadaanForm from "@/pages/admin/PengadaanForm";
 import OrgStructureAdmin from "@/pages/admin/OrgStructureAdmin";
+import GcgAdmin from "@/pages/admin/GcgAdmin";
 import BoardMemberList from "@/pages/admin/BoardMemberList";
 import BoardMemberForm from "@/pages/admin/BoardMemberForm";
 import Dashboard from "@/pages/admin/Dashboard";
 import NewsList from "@/pages/admin/NewsList";
 import NewsForm from "@/pages/admin/NewsForm";
+import CareerList from "@/pages/admin/CareerList";
+import CareerForm from "@/pages/admin/CareerForm";
 
 const queryClient = new QueryClient();
 
@@ -57,16 +65,21 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/profil/tentang-kami" component={TentangKami} />
       <Route path="/profil/sambutan-direksi" component={SambutanDireksi} />
       <Route path="/profil/visi-misi" component={VisiMisi} />
       <Route path="/tata-kelola/whistle-blowing" component={WhistleBlowing} />
       <Route path="/tata-kelola/laporan-tahunan" component={LaporanTahunan} />
+      <Route path="/tata-kelola/gcg" component={GCG} />
       <Route path="/tata-kelola/laporan-gratifikasi" component={LaporanGratifikasi} />
       <Route path="/tata-kelola/surat-keputusan-direksi" component={SuratKeputusanDireksi} />
+      <Route path="/news" component={NewsPage} />
+      <Route path="/news/:id" component={NewsDetail} />
       <Route path="/pengadaan" component={Pengadaan} />
       <Route path="/profil/struktur-organisasi" component={StrukturOrganisasi} />
       <Route path="/profil/dewan-direksi" component={DewanDireksi} />
       <Route path="/profil/dewan-komisaris" component={DewanKomisaris} />
+      <Route path="/karir" component={Karir} />
 
       <Route path="/admin/login" component={Login} />
 
@@ -155,6 +168,10 @@ function Router() {
         {() => <AdminGuard><OrgStructureAdmin /></AdminGuard>}
       </Route>
 
+      <Route path="/admin/gcg">
+        {() => <AdminGuard><GcgAdmin /></AdminGuard>}
+      </Route>
+
       <Route path="/admin/board-members">
         {() => <AdminGuard><BoardMemberList /></AdminGuard>}
       </Route>
@@ -163,6 +180,16 @@ function Router() {
       </Route>
       <Route path="/admin/board-members/:id">
         {() => <AdminGuard><BoardMemberForm /></AdminGuard>}
+      </Route>
+
+      <Route path="/admin/karir">
+        {() => <AdminGuard><CareerList /></AdminGuard>}
+      </Route>
+      <Route path="/admin/karir/baru">
+        {() => <AdminGuard><CareerForm /></AdminGuard>}
+      </Route>
+      <Route path="/admin/karir/:id">
+        {() => <AdminGuard><CareerForm /></AdminGuard>}
       </Route>
 
       <Route component={NotFound} />
